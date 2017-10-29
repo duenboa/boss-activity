@@ -1,0 +1,191 @@
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html,
+body {
+  background: #000;
+  color: #fff;
+  font-family: "MicroSoft YaHei" !important;
+}
+.bodyhidden {
+  overflow: hidden;
+}
+.bodyauto {
+  overflow: auto;
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+input,
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+  -webkit-appearance: none;
+}
+img {
+  vertical-align: bottom;
+  display: block;
+}
+.f_left {
+  float: left;
+}
+.f_right {
+  float: right;
+}
+.clearfix::after,
+.clearfix::before {
+  content: ".";
+  line-height: 0;
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+header {
+  height: 12.875rem;
+  width: 100%;
+  background: url("../imgs/header.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+}
+.content {
+  height: 14.5938rem;
+  width: 100%;
+  background: url("../imgs/content1.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  overflow: hidden;
+}
+.content h5,
+.content h6 {
+  color: #000;
+  font: normal 0.8rem "micsoft yahei";
+  margin-top: 0.55rem;
+}
+.content h6 {
+  color: red;
+  margin-top: 3.5rem;
+  font-size: 0.7rem;
+}
+.content input {
+  width: 66%;
+  height: 3.3rem;
+  margin-top: 1.6rem;
+  font: normal 1rem "micsoft yahei";
+  padding-left: 1rem;
+  background: transparent;
+  color: #fff;
+}
+.content input::-webkit-input-placeholder {
+  color: #fff;
+  opacity: 1;
+}
+.content input:-ms-input-placeholder {
+  color: #fff;
+  opacity: 1;
+}
+footer {
+  height: 16.125rem;
+  width: 100%;
+  background: url("../imgs/footer1.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  overflow: hidden;
+}
+footer a {
+  display: block;
+  width: 80%;
+  height: 4rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+footer h5 {
+  text-align: center;
+  color: #fff;
+  font: normal 0.8rem "micsoft yahei";
+  margin-top: 1.2rem;
+}
+footer div {
+  margin-top: 0.6rem;
+}
+footer p {
+  font: normal 0.8rem/1.2rem "micsoft yahei";
+  padding-left: 3rem;
+}
+.next-con {
+  background: url("../imgs/content2.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  height: 13.0938rem;
+}
+.next-con h5 {
+  font: normal 0.9rem "micsoft yahei";
+  margin-top: 0.58rem;
+}
+.next-con .prize {
+  height: 7rem;
+  width: 15.0313rem;
+  margin: 3rem auto 0;
+  background-size: 100% 100%;
+}
+.next-foot {
+  background: url("../imgs/footer2.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  height: 15.875rem;
+}
+.next-foot a {
+  margin: 1rem auto 0;
+}
+.next-foot h5 {
+  margin-top: 1.7rem;
+}
+.next-foot div {
+  margin-top: 2rem;
+}
+.next-foot p {
+  padding: 0;
+  text-align: center;
+}
+.tip {
+  width: 60%;
+  background: rgba(0, 0, 0, 0.7);
+  font: normal 1rem/2.4rem "micsoft yahei";
+  color: #fff;
+  position: fixed;
+  top: 44%;
+  left: 20%;
+  border-radius: 0.5rem;
+  padding: 10px;
+  text-align: center;
+}
+.hide {
+  display: none;
+}

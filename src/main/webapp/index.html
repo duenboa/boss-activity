@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中国移动开业狂欢送</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class='container'>
+    <header></header>
+    <div class='content center'>
+        <h5>活动时间:2017.10.28-2017.11.11</h5>
+        <h6>请输入您的手机号</h6>
+        <input type="tel" placeholder='请输入您的中国移动手机号' id='telphone'>
+    </div>
+    <footer>
+        <a class='btn'></a>
+        <h5>各类奖项设置</h5>
+        <div>
+            <p>一等奖：300元优惠券</p>
+            <p>二等奖：200元抵用券</p>
+            <p>三等奖：100元抵用券</p>
+            <p>四等奖：价值69元的精美礼品一份</p>
+            <p>领取地址：中国移动富阳市大润发营业厅</p>
+            <p>客服电话：87731234</p>
+        </div>
+    </footer>
+    <div class='tip hide'>错误提示</div>
+</div>
+</body>
+<script>
+    (function(doc,win,fontSize) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function(){
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth){
+                    return;
+                }
+                docEl.style.fontSize = fontSize * (clientWidth / 375) + 'px';
+            };
+        if(!doc.addEventListener){
+            return;
+        }
+        win.addEventListener(resizeEvt,recalc,false);
+        doc.addEventListener('DOMContentLoaded',recalc,false);
+    })(document,window,16);
+</script>
+<script src='js/jquery-3.2.0.min.js'></script>
+<script src='js/index.js'></script>
+</html>

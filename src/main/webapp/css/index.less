@@ -1,0 +1,207 @@
+*, ::before, ::after {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: @bgColor;
+  color: #fff;
+  font-family: "MicroSoft YaHei" !important;
+}
+
+.bodyhidden {
+  overflow: hidden;
+}
+
+.bodyauto {
+  overflow: auto;
+}
+
+ul, ol, li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: @bgColor;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+}
+
+input, textarea {
+  border: none;
+  outline: none;
+  resize: none;
+  -webkit-appearance: none;
+}
+
+img {
+  vertical-align: bottom;
+  display: block;
+}
+
+.f_left {
+  float: left;
+}
+
+.f_right {
+  float: right;
+}
+
+.clearfix::after, .clearfix::before {
+  content: ".";
+  line-height: 0;
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+//定义一个变量和一个mixin
+@baseFontSize: 32; //基于视觉稿横屏尺寸/100得出的基准font-size
+.px2rem(@name, @px) {
+    @{name}: unit(round(@px/@baseFontSize, 4), rem);
+}
+
+@bgColor: #000;
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+header {
+  .px2rem(height, 412rem);
+  width: 100%;
+  background: url("../imgs/header.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.content {
+  .px2rem(height, 467rem);
+  width: 100%;
+  background: url("../imgs/content1.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  overflow: hidden;
+  h5, h6 {
+    color: #000;
+    font: normal 0.8rem "micsoft yahei";
+    margin-top: 0.55rem;
+  }
+  h6 {
+    color: red;
+    margin-top: 3.5rem;
+    font-size: 0.7rem;
+  }
+  input {
+    width: 66%;
+    height: 3.3rem;
+    margin-top: 1.6rem;
+    font: normal 1rem "micsoft yahei";
+    padding-left: 1rem;
+    background: transparent;
+    color: #fff;
+  }
+  input::-webkit-input-placeholder {
+    color: #fff;
+    opacity: 1;
+  }
+  input:-ms-input-placeholder {
+    color: #fff;
+    opacity: 1;
+  }
+}
+
+footer {
+  .px2rem(height, 516rem);
+  width: 100%;
+  background: url("../imgs/footer1.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  overflow: hidden;
+  a {
+    display: block;
+    width: 80%;
+    height: 4rem;
+    margin: 0 auto;
+    position: relative;
+    z-index:1;
+  }
+  h5 {
+    text-align: center;
+    color: #fff;
+    font: normal 0.8rem "micsoft yahei";
+    margin-top: 1.2rem;
+  }
+  div {
+    margin-top: 0.6rem;
+  }
+  p {
+    font: normal 0.8rem/1.2rem "micsoft yahei";
+    padding-left: 3rem;
+  }
+}
+
+.next-con {
+  background: url("../imgs/content2.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  .px2rem(height, 419rem);
+  h5 {
+    font: normal 0.9rem "micsoft yahei";
+    margin-top: 0.58rem;
+  }
+  .prize {
+    .px2rem(height, 224rem);
+    .px2rem(width, 481rem);
+    margin: 3rem auto 0;
+    //background: url("../imgs/prize1.png") 0 0 no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+.next-foot {
+  background: url("../imgs/footer2.png") 0 0 no-repeat;
+  background-size: 100% 100%;
+  .px2rem(height, 508rem);
+  a {
+    margin: 1rem auto 0;
+  }
+  h5 {
+    margin-top: 1.7rem;
+  }
+  div {
+    margin-top: 2rem;
+  }
+  p {
+    padding: 0;
+    text-align: center;
+  }
+}
+
+.tip {
+  width: 60%;
+  background: rgba(0, 0, 0, 0.7);
+  font: normal 1rem/2.4rem "micsoft yahei";
+  color: #fff;
+  position: fixed;
+  top: 44%;
+  left: 20%;
+  border-radius: 0.5rem;
+  padding: 10px;
+  text-align: center;
+}
+.hide{
+  display: none;
+}

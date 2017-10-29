@@ -2,9 +2,12 @@ package com.boa.service;
 
 import com.boa.common.util.pagination.Page;
 import com.boa.entity.TOrder;
+import com.boa.entity.TPriceConfig;
 import com.boa.enums.DeletedEnum;
 import com.boa.enums.TOrderStatusEnum;
 import com.boa.mapper.TOrderMapper;
+import com.boa.mapper.TPriceConfigMapper;
+import com.boa.util.PriceCalcuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -21,6 +24,10 @@ public class OrderService {
 
     @Autowired
     private TOrderMapper tTOrderMapper;
+    @Autowired
+    private TPriceConfigMapper tPriceConfigMapper;
+    @Autowired
+    private PriceCalcuUtil priceCalcuUtil;
 
     public Page<TOrder> page(Page<TOrder> page) {
         tTOrderMapper.findPageOrderByCreateDate(page);
@@ -35,7 +42,7 @@ public class OrderService {
         TOrder condition = new TOrder();
         condition.setPhone(phone);
         List<TOrder> oldList = tTOrderMapper.findByCondition(condition);
-        if (oldList != null && oldList.get(0) != null) {
+        if (oldList != null && !oldList.isEmpty()) {
             TOrder old = oldList.get(0);
             String state = old.getState();
             String msg;
@@ -54,6 +61,17 @@ public class OrderService {
             }
             throw new IllegalStateException(msg);
         }
+
+        //随机概率
+        Integer giftLevel = priceCalcuUtil.getGiftLevel();
+        TPriceConfig configCondition = new TPriceConfig();
+        configCondition.setLevel(giftLevel);
+
+        List<TPriceConfig> configList = tPriceConfigMapper.findByCondition(configCondition);
+        TPriceConfig tPriceConfig = configList.get(0);
+        String description = tPriceConfig.getDescription();
+        tOrder.setGiftLevel(giftLevel);
+        tOrder.setGift(description);
         tOrder.setCreateAt(now);
         tOrder.setState(TOrderStatusEnum.browe.name());
         tOrder.setDeleted(DeletedEnum.NO.getCode());

@@ -12,6 +12,8 @@ public class TOrder{
     private Date updateAt;
     /** 电话 */
     private Long phone;
+    /** 奖品等级 关联t_price_config.level */
+    private Integer giftLevel;
     /** 奖品名称 */
     private String gift;
     /** browe)浏览, visit)入店, taked)已领取奖品, other)其他状态 */
@@ -54,6 +56,14 @@ public class TOrder{
 
     public void setPhone(Long phone) {
         this.phone = phone;
+    }
+
+    public Integer getGiftLevel() {
+        return giftLevel;
+    }
+
+    public void setGiftLevel(Integer giftLevel) {
+        this.giftLevel = giftLevel;
     }
 
     public String getGift() {
@@ -103,6 +113,7 @@ public class TOrder{
                     ", createAt=" + createAt +
                     ", updateAt=" + updateAt +
                     ", phone=" + phone +
+                    ", giftLevel=" + giftLevel +
                     ", gift='" + gift + "\'" +
                     ", state='" + state + "\'" +
                     ", visitDate=" + visitDate +

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中国移动开业狂欢送</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body style='overflow: hidden;'>
+<div class='next'>
+    <header></header>
+    <div class='content next-con center'>
+        <h5>奖品领取地址:中国移动富阳市大润发营业厅</h5>
+        <div class='prize'>
+
+        </div>
+    </div>
+    <footer class='next-foot'>
+        <a class='btn'></a>
+        <h5>中奖领取</h5>
+        <div>
+            <p>活动奖品，请到门店领取</p>
+            <p>客服电话：87731234</p>
+        </div>
+    </footer>
+</div>
+</body>
+<script>
+    (function(doc,win,fontSize) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function(){
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth){
+                    return;
+                }
+                docEl.style.fontSize = fontSize * (clientWidth / 375) + 'px';
+            };
+        if(!doc.addEventListener){
+            return;
+        }
+        win.addEventListener(resizeEvt,recalc,false);
+        doc.addEventListener('DOMContentLoaded',recalc,false);
+    })(document,window,16);
+</script>
+<script src='js/jquery-3.2.0.min.js'></script>
+<script src='js/next.js'></script>
+</html>

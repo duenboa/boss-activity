@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author Duenboa
  */
@@ -31,7 +33,7 @@ public class OrderController {
             return Jsonp.ok(orderService.page(page));
 
         } catch (IllegalArgumentException | IllegalStateException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error(e.getMessage());
             return Jsonp.err(e.getMessage());
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -41,12 +43,14 @@ public class OrderController {
 
     @ResponseBody
     @RequestMapping("add")
-    public Jsonp add(TOrder order) {
+    public Jsonp add(HttpServletResponse response, TOrder order) {
         try {
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            //response.setContentType("application/json;charset=utf-8");
             return Jsonp.ok(orderService.save(order));
 
         } catch (IllegalArgumentException | IllegalStateException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error(e.getMessage());
             return Jsonp.err(e.getMessage());
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -62,7 +66,7 @@ public class OrderController {
             return Jsonp.ok();
 
         } catch (IllegalArgumentException | IllegalStateException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error(e.getMessage());
             return Jsonp.err(e.getMessage());
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -78,7 +82,7 @@ public class OrderController {
             return Jsonp.ok();
 
         } catch (IllegalArgumentException | IllegalStateException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.error(e.getMessage());
             return Jsonp.err(e.getMessage());
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);

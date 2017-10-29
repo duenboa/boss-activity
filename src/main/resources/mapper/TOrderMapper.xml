@@ -7,6 +7,7 @@
         <result property="createAt" column="create_at" />
         <result property="updateAt" column="update_at" />
         <result property="phone" column="phone" />
+        <result property="giftLevel" column="gift_level" />
         <result property="gift" column="gift" />
         <result property="state" column="state" />
         <result property="visitDate" column="visit_date" />
@@ -15,7 +16,7 @@
     </resultMap>
 
     <sql id="selectClause">
-        id, create_at, update_at, phone, gift, state, visit_date, taked_date, deleted
+        id, create_at, update_at, phone, gift_level, gift, state, visit_date, taked_date, deleted
     </sql>
 
     <sql id="whereClause">
@@ -30,6 +31,9 @@
         </if>
         <if test="phone != null">
             AND phone = #{phone}
+        </if>
+        <if test="giftLevel != null">
+            AND gift_level = #{giftLevel}
         </if>
         <if test="gift != null">
             AND gift = #{gift}
@@ -61,6 +65,9 @@
         <if test="query.phone != null">
             AND phone = #{phone}
         </if>
+        <if test="query.giftLevel != null">
+            AND gift_level = #{giftLevel}
+        </if>
         <if test="query.gift != null">
             AND gift = #{gift}
         </if>
@@ -90,6 +97,9 @@
         </if>
         <if test="phone != null">
             phone = #{phone},
+        </if>
+        <if test="giftLevel != null">
+            gift_level = #{giftLevel},
         </if>
         <if test="gift != null">
             gift = #{gift},
@@ -121,6 +131,9 @@
         <if test="phone != null">
             phone,
         </if>
+        <if test="giftLevel != null">
+            gift_level,
+        </if>
         <if test="gift != null">
             gift,
         </if>
@@ -151,6 +164,9 @@
         <if test="phone != null">
             #{phone},
         </if>
+        <if test="giftLevel != null">
+            #{giftLevel},
+        </if>
         <if test="gift != null">
             #{gift},
         </if>
@@ -170,21 +186,21 @@
 
     <select id="findAll" resultMap="tOrderResultMap">
         select
-            <include refid="selectClause" />
+        <include refid="selectClause" />
         from t_order
     </select>
 
     <select id="findById" resultMap="tOrderResultMap">
         select
-            <include refid="selectClause" />
+        <include refid="selectClause" />
         from t_order
         where
-            id = #{id}
+        id = #{id}
     </select>
 
     <select id="findByCondition" parameterType="com.boa.entity.TOrder" resultMap="tOrderResultMap">
         select
-            <include refid="selectClause" />
+        <include refid="selectClause" />
         from t_order
         <where>
             <include refid="whereClause" />
@@ -212,7 +228,7 @@
             <include refid="updateClause" />
         </set>
         where
-                id = #{id}
+        id = #{id}
     </update>
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.boa.entity.TOrder">
         insert into t_order
@@ -227,13 +243,13 @@
 
     <select id="count" parameterType="com.boa.entity.TOrder" resultType="java.lang.Long">
         select
-            count(*)
+        count(*)
         from t_order
     </select>
 
     <select id="countByCondition" parameterType="com.boa.entity.TOrder" resultType="java.lang.Long">
         select
-            count(*)
+        count(*)
         from t_order
         <where>
             <include refid="whereClause" />
@@ -242,16 +258,16 @@
 
     <delete id="deleteById">
         update t_order set
-            disabled = '1'
+        disabled = '1'
         where
-            id = #{id}
+        id = #{id}
     </delete>
 
     <delete id="deleteDataById">
         delete
-            from t_order
+        from t_order
         where
-            id = #{id}
+        id = #{id}
 
     </delete>
 

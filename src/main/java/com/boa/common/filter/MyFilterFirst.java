@@ -1,7 +1,11 @@
 package com.boa.common.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -15,19 +19,22 @@ import java.io.IOException;
 @WebFilter(filterName = "myFilterFirst", urlPatterns = "*.do")
 public class MyFilterFirst implements Filter {
 
+    private static final Logger LOG = LoggerFactory.getLogger(MyFilterFirst.class);
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("myFilterFirst init()...");
+        LOG.debug("myFilterFirst init()...");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("myFilterFirst doFilter()...");
-        filterChain.doFilter(servletRequest, servletResponse);
+        LOG.debug("myFilterFirst doFilter()...");
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        filterChain.doFilter(servletRequest, response);
     }
 
     @Override
     public void destroy() {
-        System.out.println("myFilterFirst destroy()...");
+        LOG.debug("myFilterFirst destroy()...");
     }
 }
