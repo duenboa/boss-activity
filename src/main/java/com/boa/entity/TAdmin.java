@@ -2,7 +2,7 @@ package com.boa.entity;
 
 import java.util.Date;
 
-public class TPriceConfig{
+public class TAdmin{
 
     /** 主键 */
     private Long id;
@@ -10,12 +10,10 @@ public class TPriceConfig{
     private Date createAt;
     /** 更新时间 */
     private Date updateAt;
-    /** 中奖等级 */
-    private Integer level;
-    /** 中奖概率 整数,百分比 */
-    private Integer probability;
-    /** 中奖描述 */
-    private String description;
+    /** 用户名 */
+    private String username;
+    /** 密码 */
+    private String password;
     /** 删除状态 0)未删除, 1)已删除 */
     private Integer deleted;
 
@@ -44,28 +42,20 @@ public class TPriceConfig{
         this.updateAt = updateAt;
     }
 
-    public Integer getLevel() {
-        return level;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getProbability() {
-        return probability;
+    public String getPassword() {
+        return password;
     }
 
-    public void setProbability(Integer probability) {
-        this.probability = probability;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getDeleted() {
@@ -78,13 +68,12 @@ public class TPriceConfig{
 
     @Override
     public String toString() {
-        return "TPriceConfig{" +
+        return "TAdmin{" +
                     "id=" + id +
                     ", createAt=" + createAt +
                     ", updateAt=" + updateAt +
-                    ", level=" + level +
-                    ", probability=" + probability +
-                    ", description='" + description + "\'" +
+                    ", username='" + username + "\'" +
+                    ", password='" + password + "\'" +
                     ", deleted=" + deleted +
                     "}";
     }

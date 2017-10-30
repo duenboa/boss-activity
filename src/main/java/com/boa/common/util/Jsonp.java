@@ -12,21 +12,14 @@ import java.util.Map;
 
 public class Jsonp {
 
+    public static final String callbackKey = "callback";
     private String callback = null;
     private Map jsonp;
-    public static final String callbackKey = "callback";
-
-
     private boolean isMultipart = false;
-
-    public Map getMap() {
-        return jsonp;
-    }
 
     private Jsonp() {
         jsonp = new HashMap();
     }
-
 
     private Jsonp(String status, Object data, String detail) {
         jsonp = new HashMap();
@@ -35,6 +28,41 @@ public class Jsonp {
         setData(data);
     }
 
+    public static Jsonp ok() {
+        return newInstance("1", "", "请求数据成功");
+    }
+
+    public static Jsonp ok(Object data) {
+        return newInstance("1", data, "请求数据成功");
+    }
+
+    public static Jsonp err() {
+        return newInstance("0", "", "请求数据失败");
+    }
+
+    public static Jsonp err(String msg) {
+        return newInstance("0", "", msg);
+    }
+
+    public static Jsonp err(String status, String msg) {
+        return newInstance(status, "", msg);
+    }
+
+    public static Jsonp paramError() {
+        return newInstance("0", "", "参数错误");
+    }
+
+    public static Jsonp paramError(String msg) {
+        return newInstance("0", "", msg);
+    }
+
+    public static Jsonp newInstance(String status, Object data, String detail) {
+        return new Jsonp(status, data, detail);
+    }
+
+    public Map getMap() {
+        return jsonp;
+    }
 
     public String getStatus() {
         return (String) jsonp.get("status");
@@ -52,8 +80,31 @@ public class Jsonp {
         return jsonp.get("data");
     }
 
+    /**
+     * 设置 响应数据
+     * 列表类型数据(list)会自动转换为分页类型的数据
+     *
+     * @param data
+     * @return
+     */
+    public Jsonp setData(Object data) {
+        if (data instanceof List) {
+            jsonp.put("data", (List) data);
+        } else {
+            jsonp.put("data", data);
+        }
+        return this;
+    }
+
     public String getCallback() {
         return callback;
+    }
+
+    public Jsonp setCallback(HttpServletRequest request) {
+
+        isMultipart = (request instanceof MultipartHttpServletRequest);
+        setCallback(request.getParameter(callbackKey));
+        return this;
     }
 
     @JsonValue
@@ -87,31 +138,6 @@ public class Jsonp {
         return this;
     }
 
-
-    public Jsonp setCallback(HttpServletRequest request) {
-
-        isMultipart = (request instanceof MultipartHttpServletRequest);
-        setCallback(request.getParameter(callbackKey));
-        return this;
-    }
-
-
-    /**
-     * 设置 响应数据
-     * 列表类型数据(list)会自动转换为分页类型的数据
-     *
-     * @param data
-     * @return
-     */
-    public Jsonp setData(Object data) {
-        if (data instanceof List) {
-            jsonp.put("data", (List) data);
-        } else {
-            jsonp.put("data", data);
-        }
-        return this;
-    }
-
     public String getDetail() {
         return (String) jsonp.get("detail");
     }
@@ -129,41 +155,11 @@ public class Jsonp {
         return this;
     }
 
-
-    public static Jsonp ok() {
-        return newInstance("1", "", "请求数据成功");
-    }
-
-    public static Jsonp ok(Object data) {
-        return newInstance("1", data, "请求数据成功");
-    }
-
-    public static Jsonp err() {
-        return newInstance("0", "", "请求数据失败");
-    }
-
-    public static Jsonp err(String msg) {
-        return newInstance("0", "", msg);
-    }
-
     public boolean isMultipart() {
         return isMultipart;
     }
 
     public void setMultipart(boolean isMultipart) {
         this.isMultipart = isMultipart;
-    }
-
-    public static Jsonp paramError() {
-        return newInstance("0", "", "参数错误");
-    }
-
-    public static Jsonp paramError(String msg) {
-        return newInstance("0", "", msg);
-    }
-
-
-    public static Jsonp newInstance(String status, Object data, String detail) {
-        return new Jsonp(status, data, detail);
     }
 }

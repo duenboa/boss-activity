@@ -25,21 +25,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @ResponseBody
-    @RequestMapping("page")
-    public Jsonp getMyOrderList(Page<TOrder> page) {
-        try {
-            LOG.info(String.format("==[getOrderPage] params: [page=%s]", page));
-            return Jsonp.ok(orderService.page(page));
-
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            LOG.error(e.getMessage());
-            return Jsonp.err(e.getMessage());
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-            return Jsonp.err();
-        }
-    }
 
     @ResponseBody
     @RequestMapping("add")
@@ -48,38 +33,6 @@ public class OrderController {
             response.addHeader("Access-Control-Allow-Origin", "*");
             //response.setContentType("application/json;charset=utf-8");
             return Jsonp.ok(orderService.save(order));
-
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            LOG.error(e.getMessage());
-            return Jsonp.err(e.getMessage());
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-            return Jsonp.err();
-        }
-    }
-
-    @ResponseBody
-    @RequestMapping("updateStatus")
-    public Jsonp updateStatus(Long id, String state) {
-        try {
-            orderService.updateStatus(id, state);
-            return Jsonp.ok();
-
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            LOG.error(e.getMessage());
-            return Jsonp.err(e.getMessage());
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-            return Jsonp.err();
-        }
-    }
-
-    @ResponseBody
-    @RequestMapping("logicDelete")
-    public Jsonp logicDelete(Long id) {
-        try {
-            orderService.logicDelete(id);
-            return Jsonp.ok();
 
         } catch (IllegalArgumentException | IllegalStateException e) {
             LOG.error(e.getMessage());
