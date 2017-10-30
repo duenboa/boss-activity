@@ -1,0 +1,210 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boa.mapper.TAdminMapper">
+
+    <resultMap id="tAdminResultMap" type="com.boa.entity.TAdmin">
+        <id property="id" column="id" />
+        <result property="createAt" column="create_at" />
+        <result property="updateAt" column="update_at" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="deleted" column="deleted" />
+    </resultMap>
+
+    <sql id="selectClause">
+        id, create_at, update_at, username, password, deleted
+    </sql>
+
+    <sql id="whereClause">
+        <if test="id != null">
+            AND id = #{id}
+        </if>
+        <if test="createAt != null">
+            AND create_at = #{createAt}
+        </if>
+        <if test="updateAt != null">
+            AND update_at = #{updateAt}
+        </if>
+        <if test="username != null">
+            AND username = #{username}
+        </if>
+        <if test="password != null">
+            AND password = #{password}
+        </if>
+        <if test="deleted != null">
+            AND deleted = #{deleted}
+        </if>
+    </sql>
+
+    <sql id="pageConditionWhereClause">
+        <if test="query.id != null">
+            AND id = #{id}
+        </if>
+        <if test="query.createAt != null">
+            AND create_at = #{createAt}
+        </if>
+        <if test="query.updateAt != null">
+            AND update_at = #{updateAt}
+        </if>
+        <if test="query.username != null">
+            AND username = #{username}
+        </if>
+        <if test="query.password != null">
+            AND password = #{password}
+        </if>
+        <if test="query.deleted != null">
+            AND deleted = #{deleted}
+        </if>
+    </sql>
+
+    <sql id="updateClause">
+        <if test="id != null">
+            id = #{id},
+        </if>
+        <if test="createAt != null">
+            create_at = #{createAt},
+        </if>
+        <if test="updateAt != null">
+            update_at = #{updateAt},
+        </if>
+        <if test="username != null">
+            username = #{username},
+        </if>
+        <if test="password != null">
+            password = #{password},
+        </if>
+        <if test="deleted != null">
+            deleted = #{deleted}
+        </if>
+    </sql>
+
+    <sql id="insertClause">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="createAt != null">
+            create_at,
+        </if>
+        <if test="updateAt != null">
+            update_at,
+        </if>
+        <if test="username != null">
+            username,
+        </if>
+        <if test="password != null">
+            password,
+        </if>
+        <if test="deleted != null">
+            deleted,
+        </if>
+    </sql>
+
+    <sql id="insertValues">
+        <if test="id != null">
+            #{id},
+        </if>
+        <if test="createAt != null">
+            #{createAt},
+        </if>
+        <if test="updateAt != null">
+            #{updateAt},
+        </if>
+        <if test="username != null">
+            #{username},
+        </if>
+        <if test="password != null">
+            #{password},
+        </if>
+        <if test="deleted != null">
+            #{deleted},
+        </if>
+    </sql>
+
+    <select id="findAll" resultMap="tAdminResultMap">
+        select
+            <include refid="selectClause" />
+        from t_admin
+    </select>
+
+    <select id="findById" resultMap="tAdminResultMap">
+        select
+            <include refid="selectClause" />
+        from t_admin
+        where
+            id = #{id}
+    </select>
+
+    <select id="findByCondition" parameterType="com.boa.entity.TAdmin" resultMap="tAdminResultMap">
+        select
+            <include refid="selectClause" />
+        from t_admin
+        <where>
+            <include refid="whereClause" />
+        </where>
+    </select>
+
+    <select id="findPage" resultMap="tAdminResultMap">
+        select
+        <include refid="selectClause" />
+        from t_admin
+    </select>
+
+    <select id="findPageByCondition" parameterType="com.boa.entity.TAdmin"  resultMap="tAdminResultMap">
+        select
+        <include refid="selectClause" />
+        from t_admin
+        <where>
+            <include refid="pageConditionWhereClause" />
+        </where>
+    </select>
+
+    <update id="updateById" parameterType="com.boa.entity.TAdmin">
+        update t_admin
+        <set>
+            <include refid="updateClause" />
+        </set>
+        where
+                id = #{id}
+    </update>
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.boa.entity.TAdmin">
+        insert into t_admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertClause" />
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertValues" />
+        </trim>
+    </insert>
+
+    <select id="count" parameterType="com.boa.entity.TAdmin" resultType="java.lang.Long">
+        select
+            count(*)
+        from t_admin
+    </select>
+
+    <select id="countByCondition" parameterType="com.boa.entity.TAdmin" resultType="java.lang.Long">
+        select
+            count(*)
+        from t_admin
+        <where>
+            <include refid="whereClause" />
+        </where>
+    </select>
+
+    <delete id="deleteById">
+        update t_admin set
+            disabled = '1'
+        where
+            id = #{id}
+    </delete>
+
+    <delete id="deleteDataById">
+        delete
+            from t_admin
+        where
+            id = #{id}
+
+    </delete>
+
+</mapper>
