@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.26 (32 bit)
 MySQL - 10.1.14-MariaDB : Database - hz_act
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -27,7 +28,7 @@ CREATE TABLE `t_order` (
   `phone` bigint(20) DEFAULT NULL COMMENT '电话',
   `gift_level` int(10) DEFAULT NULL COMMENT '奖品等级 关联t_price_config.level',
   `gift` varchar(20) DEFAULT NULL COMMENT '奖品名称',
-  `state` varchar(20) DEFAULT 'browse' COMMENT 'browe)浏览, visit)入店, taked)已领取奖品, other)其他状态',
+  `state` varchar(20) DEFAULT 'browse' COMMENT 'browse)浏览, visit)入店, taked)已领取奖品, other)其他状态',
   `visit_date` datetime DEFAULT NULL COMMENT '入店时间',
   `taked_date` datetime DEFAULT NULL COMMENT '领取奖品时间',
   `deleted` tinyint(1) DEFAULT NULL COMMENT '删除状态 0)未删除, 1)已删除',

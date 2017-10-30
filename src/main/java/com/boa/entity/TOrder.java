@@ -1,5 +1,7 @@
 package com.boa.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class TOrder{
@@ -34,6 +36,7 @@ public class TOrder{
         this.id = id;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getCreateAt() {
         return createAt;
     }
@@ -42,6 +45,7 @@ public class TOrder{
         this.createAt = createAt;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getUpdateAt() {
         return updateAt;
     }
@@ -81,7 +85,7 @@ public class TOrder{
     public void setState(String state) {
         this.state = state;
     }
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getVisitDate() {
         return visitDate;
     }
@@ -89,7 +93,7 @@ public class TOrder{
     public void setVisitDate(Date visitDate) {
         this.visitDate = visitDate;
     }
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getTakedDate() {
         return takedDate;
     }

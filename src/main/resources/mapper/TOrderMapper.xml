@@ -272,10 +272,14 @@
     </delete>
 
 
-    <select id="findPageOrderByCreateDate" resultMap="tOrderResultMap">
+    <select id="findPageOrderByCreateDate" resultMap="tOrderResultMap" parameterType="java.lang.Long">
         select
         <include refid="selectClause" />
         from t_order
+        where 1=1
+        <if test="phone != null">
+            and phone = #{phone}
+        </if>
         order by create_at desc
     </select>
 

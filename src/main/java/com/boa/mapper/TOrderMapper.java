@@ -2,6 +2,7 @@ package com.boa.mapper;
 
 import com.boa.common.util.pagination.Page;
 import com.boa.entity.TOrder;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface TOrderMapper extends BaseMapper<TOrder, Long> {
      * @param page 分页
      * @return List List
      */
-    List<TOrder> findPageOrderByCreateDate(Page page);
+    List<TOrder> findPageOrderByCreateDate(Page page, @Param("phone") Long phone);
 }

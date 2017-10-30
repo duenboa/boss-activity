@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -28,9 +29,10 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping(value = "login") //, method = RequestMethod.POST
-    public Jsonp login(String username, String password, HttpServletRequest request) {
+    public Jsonp login(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         try {
             LOG.info(String.format("==[login] params: [username=%s], [password=%s]", username, password));
+            response.addHeader("Access-Control-Allow-Origin", "*");
             TAdmin admin = loginService.login(username, password);
             HttpSession session = request.getSession();
             session.setAttribute(USER_INFO_SESSION_KEY, admin);
@@ -47,9 +49,10 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping(value = "logout")
-    public Jsonp logout(HttpServletRequest request) {
+    public Jsonp logout(HttpServletRequest request, HttpServletResponse response) {
         try {
             LOG.info(String.format("==[logout]"));
+            response.addHeader("Access-Control-Allow-Origin", "*");
             HttpSession session = request.getSession();
             session.removeAttribute(USER_INFO_SESSION_KEY);
             session.invalidate();

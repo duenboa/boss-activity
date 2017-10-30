@@ -10,7 +10,7 @@ import java.util.Map;
  * @date 2017/10/28
  */
 public enum TOrderStatusEnum {
-    browe("browe", "浏览"),
+    browse("browse", "浏览"),
     visit("visit", "入店"),
     taked("taked", "已领取奖品"),
     other("other", "其他状态");

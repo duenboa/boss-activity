@@ -29,8 +29,9 @@ public class OrderService {
     @Autowired
     private PriceCalcuUtil priceCalcuUtil;
 
-    public Page<TOrder> page(Page<TOrder> page) {
-        tTOrderMapper.findPageOrderByCreateDate(page);
+    public Page<TOrder> page(Page<TOrder> page, TOrder order) {
+        Long phone = order.getPhone();
+        tTOrderMapper.findPageOrderByCreateDate(page, phone);
         return page;
     }
 
@@ -47,7 +48,7 @@ public class OrderService {
             String state = old.getState();
             String msg;
             switch (TOrderStatusEnum.nameOf(state)) {
-                case browe:
+                case browse:
                     msg = "请到门店领取您的奖品吧~";
                     break;
                 case visit:
@@ -73,7 +74,7 @@ public class OrderService {
         tOrder.setGiftLevel(giftLevel);
         tOrder.setGift(description);
         tOrder.setCreateAt(now);
-        tOrder.setState(TOrderStatusEnum.browe.name());
+        tOrder.setState(TOrderStatusEnum.browse.name());
         tOrder.setDeleted(DeletedEnum.NO.getCode());
         tTOrderMapper.save(tOrder);
         return tOrder;
