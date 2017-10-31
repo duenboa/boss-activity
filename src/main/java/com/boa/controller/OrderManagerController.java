@@ -1,6 +1,6 @@
 package com.boa.controller;
 
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSON;
 import com.boa.common.util.Jsonp;
 import com.boa.common.util.pagination.Page;
 import com.boa.entity.TOrder;
@@ -38,7 +38,9 @@ public class OrderManagerController {
      */
     @ResponseBody
     @RequestMapping("page")
-    public void getMyOrderList(Integer page, Integer rows, TOrder condition, HttpServletResponse response) {
+    public String getMyOrderList(Integer page, Integer rows, TOrder condition, HttpServletResponse response) {
+
+        String nullMsg = "{\"total\":0 , \"rows\":[{},{}]}";
         try {
             response.addHeader("Access-Control-Allow-Origin", "*");
             response.setContentType("text/html;charset=utf-8");
@@ -53,16 +55,17 @@ public class OrderManagerController {
             Page<TOrder> result = orderService.page(pageObj, condition);
             //return Jsonp.ok(result.getData());
 
-            String nullMsg = "{\"total\":0 , \"rows\":[{},{}]}";
-            String json = "{\"total\":" + result.getTotalSize() + " , \"rows\":" + JSONArray.toJSONString(result.getData()) + "}";
-            response.getWriter().write(json);
+            String json = "{\"total\":" + result.getTotalSize() + " , \"rows\":" + JSON.toJSONString(result.getData()) + "}";
+            return json;
 
             // return Jsonp.ok(result.getData());
         } catch (IllegalArgumentException | IllegalStateException e) {
             LOG.error(e.getMessage());
+            return nullMsg;
             //return Jsonp.err(e.getMessage());
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
+            return nullMsg;
             // return Jsonp.err();
         }
     }

@@ -1,5 +1,6 @@
 package com.boa.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -9,8 +10,10 @@ public class TOrder{
     /** 主键 */
     private Long id;
     /** 创建时间,即用户点击参与活动时间 */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createAt;
     /** 最后一次更新时间 */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateAt;
     /** 电话 */
     private Long phone;
@@ -21,8 +24,10 @@ public class TOrder{
     /** browe)浏览, visit)入店, taked)已领取奖品, other)其他状态 */
     private String state;
     /** 入店时间 */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date visitDate;
     /** 领取奖品时间 */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date takedDate;
     /** 删除状态 0)未删除, 1)已删除 */
     private Integer deleted;
@@ -36,7 +41,6 @@ public class TOrder{
         this.id = id;
     }
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getCreateAt() {
         return createAt;
     }
@@ -45,7 +49,6 @@ public class TOrder{
         this.createAt = createAt;
     }
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getUpdateAt() {
         return updateAt;
     }
@@ -85,7 +88,6 @@ public class TOrder{
     public void setState(String state) {
         this.state = state;
     }
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getVisitDate() {
         return visitDate;
     }
