@@ -20,7 +20,7 @@
             return;
         }
         $.ajax({
-            url:'http://localhost:8088/activity/order/add.do',
+            url:'http://boa.free.ngrok.cc/activity/order/add.do',
             data: {
                 "phone":val
             },

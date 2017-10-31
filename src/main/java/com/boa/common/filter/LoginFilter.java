@@ -13,13 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-// TODO: 2017/10/29完成权限过滤+查询分页页面
-
 /**
  * @author DuenBoa
  * @date 2017/10/29
  */
-@WebFilter(urlPatterns = "/manage/*/*", filterName = "loginFilter")
+@WebFilter(urlPatterns = "/manage/order/*", filterName = "loginFilter")
 public class LoginFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(LoginFilter.class);
 
@@ -49,20 +47,21 @@ public class LoginFilter implements Filter {
             }
             if (sessionInCC == null) {
                 Jsonp baseResponse = Jsonp.err("-99", "请登录");
-                servletResponse.getWriter().write(request.getParameter("callback") + JsonUtil.toJson(baseResponse));
+                servletResponse.getWriter().write(JsonUtil.toJson(baseResponse));
                 return;
             }
 
             HttpSession session = request.getSession();
             if (!session.getId().equals(sessionInCC) || session.getAttribute(LoginController.USER_INFO_SESSION_KEY) == null) {
                 Jsonp baseResponse = Jsonp.err("-99", "请登录.");
-                servletResponse.getWriter().write(request.getParameter("callback") + JsonUtil.toJson(baseResponse));
+                servletResponse.getWriter().write(JsonUtil.toJson(baseResponse));
                 return;
             }
 
         } catch (Exception e) {
             Jsonp baseResponse = Jsonp.err("-99", "请登录..");
-            servletResponse.getWriter().write(request.getParameter("callback") + JsonUtil.toJson(baseResponse));
+            servletResponse.getWriter().write(JsonUtil.toJson(baseResponse));
+//            servletResponse.getWriter().write(request.getParameter("callback") + JsonUtil.toJson(baseResponse));
             return;
         }
         //放行

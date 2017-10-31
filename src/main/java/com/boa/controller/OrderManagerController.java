@@ -38,18 +38,22 @@ public class OrderManagerController {
      */
     @ResponseBody
     @RequestMapping("page")
-    public void getMyOrderList(int page, int rows, TOrder condition, HttpServletResponse response) {
+    public void getMyOrderList(Integer page, Integer rows, TOrder condition, HttpServletResponse response) {
         try {
-            Page<TOrder> pageObj = new Page<>();
-            pageObj.setPageSize(rows);
-            pageObj.setPageNumber(page);
-            LOG.info(String.format("==[getOrderPage] params: [page=%s]", pageObj));
             response.addHeader("Access-Control-Allow-Origin", "*");
+            response.setContentType("text/html;charset=utf-8");
+            Page<TOrder> pageObj = new Page<>();
+            if (rows != null) {
+                pageObj.setPageSize(rows);
+            }
+            if (page != null) {
+                pageObj.setPageNumber(page);
+            }
+            LOG.info(String.format("==[getOrderPage] params: [page=%s]", pageObj));
             Page<TOrder> result = orderService.page(pageObj, condition);
             //return Jsonp.ok(result.getData());
 
-            response.setContentType("text/html;charset=utf-8");
-            //{"total":10 , "rows":[{},{}]}
+            String nullMsg = "{\"total\":0 , \"rows\":[{},{}]}";
             String json = "{\"total\":" + result.getTotalSize() + " , \"rows\":" + JSONArray.toJSONString(result.getData()) + "}";
             response.getWriter().write(json);
 

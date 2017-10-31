@@ -50,12 +50,12 @@ public class MySpringMVCConfig extends WebMvcConfigurerAdapter {
 
             @Override
             public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-                LOGGER.info("addInterceptors:: postHandle");
+                //LOGGER.info("addInterceptors:: postHandle");
             }
 
             @Override
             public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-                LOGGER.info("addInterceptors:: afterCompletion");
+                //LOGGER.info("addInterceptors:: afterCompletion");
             }
         };
 

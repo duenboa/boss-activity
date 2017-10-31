@@ -62,22 +62,22 @@
                 //width:1300 ,
                 fit: true,
                 height: 450,
-                url: 'http://localhost:8088/manage/order/page.do',
+                url: 'http://boa.free.ngrok.cc/manage/order/page.do',
                 fitColumns: true,
                 striped: true,					//隔行变色特性
                 //nowrap: false ,				//折行显示 为true 显示在一会
                 loadMsg: '数据正在加载,请耐心的等待...',
                 rownumbers: true,
-                //singleSelect:true ,				//单选模式
+                singleSelect: true,				//单选模式
                 //remoteSort: false ,
                 //sortName: 'salary' ,
                 //sortOrder: 'desc' ,
                 rowStyler: function (index, record) {
-                    if (record.age > 25) {
+                    if (record.deleted == 1) {
                         return "background:red";
                     }
-                    console.log(index);
-                    console.log(record);
+                    //console.log(index);
+                    //console.log(record);
                 },
                 frozenColumns: [[				//冻结列特性 ,不要与fitColumns 特性一起使用
                     {
@@ -143,22 +143,28 @@
                 pageSize: 20,
                 pageList: [5, 10, 15, 20, 50, 100, 200],
                 toolbar: [
-//                    {
-//                        text: '新增订单',
-//                        iconCls: 'icon-add',
-//                        handler: function () {
-//                            flag = 'add';
-//                            $('#mydialog').dialog({
-//                                title: '新增订单'
-//                            });
-//                            //$('#myform').find('input[name!=sex]').val("");
-//                            $('#myform').get(0).reset();
-//                            //$('#myform').form('clear');
-//                            $('#mydialog').dialog('open');
-//
-//                        }
-//
-//                    },
+                    {
+                        text: '安全退出',
+                        iconCls: 'icon-redo',
+                        handler: function () {
+                            $.post('http://boa.free.ngrok.cc/sys/logout.do', function (r) {
+                            });
+
+                            $.messager.show({
+                                title: '提示信息!',
+                                msg: '成功退出! 请关闭页面或重新登录.'
+                            });
+
+                            window.location.href = "http://boa.free.ngrok.cc/login.html";
+                        }
+                    },
+                    {
+                        text: '重新登录',
+                        iconCls: 'icon-reload',
+                        handler: function () {
+                            window.location.href = "http://boa.free.ngrok.cc/login.html";
+                        }
+                    },
                     {
                         text: '修改订单',
                         iconCls: 'icon-edit',
@@ -185,43 +191,45 @@
                             }
 
                         }
-                    }, {
-                        text: '删除订单',
-                        iconCls: 'icon-remove',
-                        handler: function () {
-                            var arr = $('#t_user').datagrid('getSelections');
-                            if (arr.length <= 0) {
-                                $.messager.show({
-                                    title: '提示信息!',
-                                    msg: '至少选择一行记录进行删除!'
-                                });
-                            } else {
-
-                                $.messager.confirm('提示信息', '确认删除?', function (r) {
-                                    if (r) {
-                                        var ids = '';
-                                        for (var i = 0; i < arr.length; i++) {
-                                            ids += arr[i].id + ',';
-                                        }
-                                        ids = ids.substring(0, ids.length - 1);
-                                        $.post('UserServlet?method=delete', {ids: ids}, function (result) {
-                                            //1 刷新数据表格
-                                            $('#t_user').datagrid('reload');
-                                            //2 清空idField
-                                            $('#t_user').datagrid('unselectAll');
-                                            //3 给提示信息
-                                            $.messager.show({
-                                                title: '提示信息!',
-                                                msg: '操作成功!'
-                                            });
-                                        });
-                                    } else {
-                                        return;
-                                    }
-                                });
-                            }
-                        }
-                    }, {
+                    }
+//                    , {
+//                        text: '删除订单',
+//                        iconCls: 'icon-remove',
+//                        handler: function () {
+//                            var arr = $('#t_user').datagrid('getSelections');
+//                            if (arr.length <= 0) {
+//                                $.messager.show({
+//                                    title: '提示信息!',
+//                                    msg: '至少选择一行记录进行删除!'
+//                                });
+//                            } else {
+//
+//                                $.messager.confirm('提示信息', '确认删除?', function (r) {
+//                                    if (r) {
+//                                        var ids = '';
+//                                        for (var i = 0; i < arr.length; i++) {
+//                                            ids += arr[i].id + ',';
+//                                        }
+//                                        ids = ids.substring(0, ids.length - 1);
+//                                        $.post('UserServlet?method=delete', {ids: ids}, function (result) {
+//                                            //1 刷新数据表格
+//                                            $('#t_user').datagrid('reload');
+//                                            //2 清空idField
+//                                            $('#t_user').datagrid('unselectAll');
+//                                            //3 给提示信息
+//                                            $.messager.show({
+//                                                title: '提示信息!',
+//                                                msg: '操作成功!'
+//                                            });
+//                                        });
+//                                    } else {
+//                                        return;
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    }
+                    , {
                         text: '查询订单',
                         iconCls: 'icon-search',
                         handler: function () {
