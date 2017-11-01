@@ -23,7 +23,7 @@ import java.util.Date;
 @Component
 public class JsonUtil {
 
-    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final ObjectMapper mapper;
 
     public ObjectMapper getMapper() {

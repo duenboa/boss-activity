@@ -1,26 +1,34 @@
 package com.boa.common.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.boa.common.util.DateFormatter;
+import com.boa.common.util.JsonUtil;
+import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.format.FormatterRegistrar;
+import org.springframework.format.datetime.DateFormatterRegistrar;
+import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ObjectToStringHttpMessageConverter;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.handler.MappedInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Copyright (C), 2000-9999 DuenBoa
@@ -32,9 +40,12 @@ import java.util.Map;
 public class MySpringMVCConfig extends WebMvcConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MySpringMVCConfig.class);
+    @Autowired
+    private JsonUtil jsonUtil;
 
-
-    /** 将自定义拦截器添加到拦截器注册机中 **/
+    /**
+     * 将自定义拦截器添加到拦截器注册机中
+     **/
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
@@ -82,5 +93,26 @@ public class MySpringMVCConfig extends WebMvcConfigurerAdapter {
         LOGGER.info("======= [org.springframework.http.converter.json.MappingJackson2HttpMessageConverter.class] initialized");
     }
 
+
+    /**
+     * 入参Date类型在实体类或DTO中的转换器.
+     *
+     * @return
+     */
+    @Bean
+    public FormattingConversionServiceFactoryBean getFormattingConversionServiceFactoryBean() {
+        FormattingConversionServiceFactoryBean bean = new FormattingConversionServiceFactoryBean();
+        bean.setRegisterDefaultFormatters(false);
+        DateFormatterRegistrar dateFormatterRegistrar = new DateFormatterRegistrar();
+        dateFormatterRegistrar.setFormatter(new DateFormatter());
+        Set<FormatterRegistrar> es = Sets.newHashSet(dateFormatterRegistrar);
+        bean.setFormatterRegistrars(es);
+        return bean;
+    }
+
+    @Bean
+    public ResourceHttpMessageConverter getResourceHttpMessageConverter() {
+        return new ResourceHttpMessageConverter();
+    }
 
 }

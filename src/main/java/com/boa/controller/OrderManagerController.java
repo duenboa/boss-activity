@@ -72,19 +72,20 @@ public class OrderManagerController {
 
 
     @ResponseBody
-    @RequestMapping("updateStatus")
-    public Jsonp updateStatus(Long id, String state, HttpServletResponse response) {
+    @RequestMapping("update")
+    public Jsonp update(TOrder torder, HttpServletResponse response) {
         try {
             response.addHeader("Access-Control-Allow-Origin", "*");
-            orderService.updateStatus(id, state);
-            return Jsonp.ok();
+            response.setContentType("text/html;charset=utf-8");
+            orderService.updateStatus(torder);
+            return Jsonp.ok("修改成功!");
 
         } catch (IllegalArgumentException | IllegalStateException e) {
             LOG.error(e.getMessage());
             return Jsonp.err(e.getMessage());
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
-            return Jsonp.err();
+            return Jsonp.err("修改失败!");
         }
     }
 

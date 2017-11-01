@@ -1,6 +1,7 @@
 package com.boa;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,8 +26,8 @@ public class BootstrapApplication {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BootstrapApplication.class);
 
     public static void main(String[] args) {
-        //SpringApplication app = new SpringApplication();
-        //app.setBannerMode(OFF); //关闭banner
+        SpringApplication app = new SpringApplication();
+        app.setBannerMode(Banner.Mode.OFF); //关闭banner
         SpringApplication.run(BootstrapApplication.class, args);
         System.out.println("**************************************************************************************************************************");
         System.out.println("**************************************    Boa Spring boot Application start completed !   ********************************");

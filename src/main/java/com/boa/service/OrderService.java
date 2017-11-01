@@ -90,13 +90,38 @@ public class OrderService {
     }
 
 
-    public void updateStatus(Long id, String state) {
-        Assert.hasText(state, "状态不能为空");
-        Assert.notNull(TOrderStatusEnum.nameOf(state), "状态无效");
-        TOrder order = tTOrderMapper.findById(id);
-        Assert.notNull(order, "id无效,你是坏人");
-        order.setState(state);
-        tTOrderMapper.updateById(order);
+    public void updateStatus(TOrder order) {
+        Assert.notNull(order, "系统参数确少");
+        Long id = order.getId();
+        String state = order.getState();
+        Date visitDate = order.getVisitDate();
+        Date takedDate = order.getTakedDate();
+        Assert.notNull(id, "id不能为空");
+        Assert.hasText(order.getState(), "状态不能为空");
+        TOrderStatusEnum statusEnum = TOrderStatusEnum.nameOf(state);
+        Assert.notNull(statusEnum, "状态无效");
+        TOrder old = tTOrderMapper.findById(id);
+        Assert.notNull(old, "id无效,你是坏人");
+
+        /*后台管理系统只能将状态置为到店,已领取奖品. 这时候对应的时间必须输入.
+         */
+        switch (statusEnum) {
+            case visit: {
+                Assert.notNull(visitDate, "到店时间必填");
+                old.setState(state);
+                old.setVisitDate(visitDate);
+                break;
+            }
+
+            case taked: {
+                Assert.notNull(takedDate, "领奖时间必填");
+                old.setState(state);
+                old.setVisitDate(takedDate);
+                break;
+            }
+
+        }
+        tTOrderMapper.updateById(old);
     }
 
 

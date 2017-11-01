@@ -1,6 +1,7 @@
 package com.boa.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -40,7 +41,7 @@ public class TOrder{
     public void setId(Long id) {
         this.id = id;
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getCreateAt() {
         return createAt;
     }
@@ -49,12 +50,12 @@ public class TOrder{
         this.createAt = createAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+    public Date getUpdateAt() {
+        return updateAt;
     }
 
     public Long getPhone() {
@@ -88,6 +89,8 @@ public class TOrder{
     public void setState(String state) {
         this.state = state;
     }
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getVisitDate() {
         return visitDate;
     }
@@ -96,6 +99,7 @@ public class TOrder{
         this.visitDate = visitDate;
     }
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getTakedDate() {
         return takedDate;
     }
