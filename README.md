@@ -4,11 +4,9 @@
 
 
 mobile端请求地址:
-http://localhost:8088/index.htmlmobile
+http://localhost:8088/index.html
 
 boss登录请求地址:
-http://localhost:8088/page/admin-login.htmlboss
+http://localhost:8088/login.html
 
-boss列表登录请求地址:
-http://localhost:8088/page/admin-page.html
 
