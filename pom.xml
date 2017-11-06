@@ -6,8 +6,8 @@
     <groupId>com.boa</groupId>
     <artifactId>boss-activity</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <!--<packaging>war</packaging>-->
+    <!--<packaging>jar</packaging>-->
+    <packaging>war</packaging>
 
     <name>boss-activity</name>
     <description>运营支撑系统-活动子系统</description>
@@ -54,11 +54,11 @@
             <scope>test</scope>
         </dependency>
         <!--将tomcat设置为provid是在打包时将其排除, 因为当要放到独立的tomcat中运行时是不需要的.-->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
-        <!--<scope>provided</scope>-->
-        <!--</dependency>-->
+        <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-tomcat</artifactId>
+        <scope>provided</scope>
+        </dependency>
 
         <!--mybatis tools-->
         <dependency>

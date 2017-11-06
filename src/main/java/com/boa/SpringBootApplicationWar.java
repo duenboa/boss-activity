@@ -14,17 +14,27 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  *     <version>0.0.1-SNAPSHOT</version>
  *     <!--<packaging>jar</packaging>-->
  *     <packaging>war</packaging>
+ *
+ *
+ * 2. 配置启动类
+ * <code>
+ *
+ * @Controller
+ * @EnableAutoConfiguration
+ * @SpringBootApplication
+ * public class SpringBootApplicationWar extends SpringBootServletInitializer {
+ * </code>
+ *
  * </pre>
- * 1. 将maven中的依赖: spring-boot-starter-tomcat 的scope设置为 provide类型. 编译时提供,打包时排除.
+ * <p>
+ * 3.
+ * 将maven中的依赖: spring-boot-starter-tomcat 的scope设置为 provide类型. 编译时提供,打包时排除.
  */
-//@Controller
-//@EnableAutoConfiguration
-//@SpringBootApplication
-public class BootstrapApplicationBuilderWar extends SpringBootServletInitializer {
-
+public class SpringBootApplicationWar extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(BootstrapApplicationBuilderWar.class);
+        //此处指向原先启动jar应用的核心类.
+        return builder.sources(BootstrapApplication.class);
     }
 }
