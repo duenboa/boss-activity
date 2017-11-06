@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * @see
  */
 @Configuration
-@PropertySource({"jdbc.properties"})
+@PropertySource({"classpath:jdbc.properties"})
 public class JDBCConfig {
 
     @Value("${jdbc.driverClassName}")
