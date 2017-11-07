@@ -2,6 +2,7 @@ package com.boa.common.config;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -45,6 +46,16 @@ public class MybatisConfig {
             throw new RuntimeException("can not load mybatis *Mapper.xml files");
         }
         return sqlSessionFactoryBean;
+    }
+
+
+    /**** mapper接口的扫描器 ****/
+    @Bean
+    @ConditionalOnMissingBean
+    public MapperScannerConfigurer mapperScannerConfigurer() {
+        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+        mapperScannerConfigurer.setBasePackage("com.boa.mapper");
+        return mapperScannerConfigurer;
     }
 
 
