@@ -10,6 +10,7 @@ import com.boa.mapper.TPriceConfigMapper;
 import com.boa.util.PriceCalcuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Date;
@@ -36,12 +37,17 @@ public class OrderService {
     }
 
 
-    public TOrder save(TOrder tOrder) {
-        Long phone = tOrder.getPhone();
+    @Transactional
+    public synchronized TOrder save(TOrder tOrder) {
+        final Long phone = tOrder.getPhone();
         Assert.notNull(phone, "电话必填");
-        Date now = new Date();
-        TOrder condition = new TOrder();
+        final TOrder condition = new TOrder();
         condition.setPhone(phone);
+        //随机概率
+        final TPriceConfig configCondition = new TPriceConfig();
+        final Integer giftLevel = priceCalcuUtil.getGiftLevel();
+        configCondition.setLevel(giftLevel);
+
         List<TOrder> oldList = tTOrderMapper.findByCondition(condition);
         if (oldList != null && !oldList.isEmpty()) {
             TOrder old = oldList.get(0);
@@ -62,21 +68,16 @@ public class OrderService {
             }
             throw new IllegalStateException(msg);
         }
-
-        //随机概率
-        Integer giftLevel = priceCalcuUtil.getGiftLevel();
-        TPriceConfig configCondition = new TPriceConfig();
-        configCondition.setLevel(giftLevel);
-
         List<TPriceConfig> configList = tPriceConfigMapper.findByCondition(configCondition);
         TPriceConfig tPriceConfig = configList.get(0);
         String description = tPriceConfig.getDescription();
         tOrder.setGiftLevel(giftLevel);
         tOrder.setGift(description);
-        tOrder.setCreateAt(now);
+        tOrder.setCreateAt(new Date());
         tOrder.setState(TOrderStatusEnum.browse.name());
         tOrder.setDeleted(DeletedEnum.NO.getCode());
         tTOrderMapper.save(tOrder);
+
         return tOrder;
     }
 
@@ -116,10 +117,11 @@ public class OrderService {
             case taked: {
                 Assert.notNull(takedDate, "领奖时间必填");
                 old.setState(state);
-                old.setVisitDate(takedDate);
+                old.setTakedDate(takedDate);
                 break;
             }
-
+            default:
+                break;
         }
         tTOrderMapper.updateById(old);
     }
